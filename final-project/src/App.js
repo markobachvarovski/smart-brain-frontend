@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import 'tachyons';
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
@@ -7,7 +8,7 @@ import Rank from './components/Rank/Rank';
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition"
 import Particles from "react-tsparticles";
 import Clarifai from 'clarifai';
-import {calculateNewValue} from "@testing-library/user-event/dist/utils";
+
 
 const app = new Clarifai.App({
     apiKey: 'd4859bbc19794718a2c877aa76ed917e'
@@ -25,6 +26,22 @@ class App extends Component {
 
     calculateFaceLocation = (data) => {
         const face = data.outputs[0].data.regions[0].region_info.bounding_box
+
+        const image = document.getElementById('inputimage')
+
+        const width = Number(image.width)
+        const height = Number(image.height)
+
+        return ({
+            leftCol: face.left_col * width,
+            topRow: face.top_row * height,
+            rightCol: (1 - face.right_col) * width,
+            bottomRow: (1 - face.bottom_row) * height
+        })
+    }
+
+    displayFaceBox = (box) => {
+        this.setState({box: box});
     }
 
     onInputChange = (event) => {
@@ -33,14 +50,9 @@ class App extends Component {
 
     onButtonSubmit = () => {
         this.setState({imgUrl: this.state.input})
-        app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
-            function(response){
-                this.calculateFaceLocation(response)
-            },
-            function(err){
-                console.log(err)
-            }
-        );
+        app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+            .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+            .catch(err => console.log(err));
     }
 
     render() {
@@ -52,12 +64,23 @@ class App extends Component {
                     init={particlesInit}
                     loaded={particlesLoaded}
                     options={particleOptions}/>
-                <Navigation />
-                <Logo />
+
+                <div className={'ma3'} style={{display: 'flex'}}>
+                    <div style={{justifyContent:'flex-start'}}>
+                        <Logo />
+                    </div>
+                    <div style={{marginLeft: "auto"}}>
+                        <Navigation/>
+                    </div>
+                </div>
+
                 <Rank />
+
                 <ImageLinkForm onInputChange = {this.onInputChange}
                                onButtonSubmit = {this.onButtonSubmit}/>
-                <FaceRecognition imgUrl={this.state.imgUrl}/>
+
+                <FaceRecognition box={this.state.box} imgUrl={this.state.imgUrl}/>
+
             </div>
         );
     }
