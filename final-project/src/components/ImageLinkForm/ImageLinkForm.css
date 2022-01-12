@@ -2,3 +2,7 @@
     width: 700px;
     background: linear-gradient(100deg, #0CE8B3 0%, #02B7F7 100%);
 }
+
+p, button{
+    font-family: "Bookman Old Style", serif;
+}
