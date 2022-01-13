@@ -6,3 +6,7 @@
 p, button{
     font-family: "Bookman Old Style", serif;
 }
+
+button{
+    background-color: #0CE8B3;
+}
