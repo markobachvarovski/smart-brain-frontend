@@ -164,7 +164,7 @@ const particleOptions = {
             enable: true,
             outMode: "bounce",
             random: false,
-            speed: 2,
+            speed: 1,
             straight: false,
         },
         number: {
@@ -178,11 +178,11 @@ const particleOptions = {
             value: 0.5,
         },
         shape: {
-            type: "circle",
+            type: "circle"
         },
         size: {
             random: true,
-            value: 5,
+            value: 3,
         },
     },
     detectRetina: true,
