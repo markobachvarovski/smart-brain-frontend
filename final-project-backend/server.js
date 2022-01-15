@@ -33,28 +33,35 @@ app.get('/', (req, res) => {
 
 app.get('/profile/:id', (req, res) => {
     const {id} = req.params;
+    let found = false;
     database.users.forEach(user => {
         if (user.id === id){
+            found = true;
             return res.json(user)
         }
 
     })
 
-    res.status(404).json('user doesnt exist')
+    if(!found) {
+        res.status(404).json('user doesnt exist')
+    }
 })
 
 app.post('/signin', (req, res) => {
     const {email, password} = req.body
-
+    let found = false
     database.users.forEach(user => {
         if (email === user.email &&
             password === user.password){
+            found = true
             return res.json(database.users[0]);
         }
 
     })
 
-    res.status(400).json('error logging in')
+    if (!found){
+        res.status(400).json('error logging in')
+    }
 })
 
 app.post('/register', (req, res) => {
@@ -76,21 +83,23 @@ app.post('/register', (req, res) => {
     res.json(database.users[database.users.length - 1])
 })
 
-app.post('/image', (req, res) => {
+app.put('/image', (req, res) => {
     const {id} = req.body
+    let found = false
 
     database.users.forEach(user => {
         if (user.id === id){
-            user.entries ++
-            return res.json(user)
+            found = true
+            user.entries++
+            return res.json(user.entries)
         }
 
     })
-
-    res.status(404).json('user doesnt exist')
-
+    if (!found) {
+        res.status(404).json('user doesnt exist')
+    }
 })
 
 app.listen(3001, () => {
-    console.log('app is running on port 3000')
+    console.log('app is running on port 3001')
 })
