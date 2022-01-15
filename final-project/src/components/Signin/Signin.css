@@ -200,3 +200,7 @@
 .pointer:hover {
     cursor: pointer;
 }
+
+.br15{
+    border-radius: 15px;
+}

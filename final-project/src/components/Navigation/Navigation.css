@@ -7,3 +7,7 @@
 input{
     font-family: "RealityCheck", serif;
 }
+
+.br15{
+    border-radius: 15px;
+}

@@ -16,3 +16,11 @@ p, button{
 button{
     background-color: #0CE8B3;
 }
+
+.br15{
+    border-radius: 15px;
+}
+
+.ma5{
+    margin-left: 5px;
+}

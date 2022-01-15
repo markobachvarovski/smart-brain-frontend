@@ -54,20 +54,20 @@ class Signin extends React.Component{
                             <div className="mt3">
                                 <label className="font db fw6 lh-copy f6" htmlFor="email-address">Email</label>
                                 <input onChange={this.onEmailChange}
-                                    className="pa2 input-reset ba bg-transparent hover-white w-100"
+                                    className="pa2 input-reset br15 ba bg-transparent hover-white w-100"
                                        type="email" name="email-address" id="email-address"/>
                             </div>
                             <div className="mv3">
                                 <label className="font db fw6 lh-copy f6" htmlFor="password">Password</label>
                                 <input onChange={this.onPasswordChange}
-                                    className="b pa2 input-reset ba bg-transparent hover-white w-100"
+                                    className="b pa2 input-reset br15 ba bg-transparent hover-white w-100"
                                        type="password" name="password" id="password"/>
                             </div>
                         </fieldset>
                         <div className="" style={{display:"flex", flexDirection: 'column', justifyContent:"center"}}>
-                            <input onClick={this.onSubmitSignIn} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f4 dib"
+                            <input onClick={this.onSubmitSignIn} className="b br15 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f4 dib"
                                    type="submit" value="Sign in"/>
-                            <input onClick={this.goRegister} className="b mh3 mv2 ph0 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                            <input onClick={this.goRegister} className="b mh3 br15 mv2 ph0 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                                    type="submit" value="Register"/>
                         </div>
                     </div>
