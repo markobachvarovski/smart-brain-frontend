@@ -23,8 +23,27 @@ class App extends Component {
             input: '',
             imgUrl: '',
             box: {},
-            route: 'signin'
+            route: 'signin',
+            user: {
+                id: '',
+                name: '',
+                email: '',
+                password: '',
+                entries: 0,
+                joined: ''
+            }
         }
+    }
+
+    loadUser = (user) => {
+        this.setState({user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                entries: user.entries,
+                joined: user.joined
+            }})
     }
 
     calculateFaceLocation = (data) => {
@@ -84,7 +103,7 @@ class App extends Component {
                             </div>
                         </div>
 
-                        <Rank />
+                        <Rank entries={this.state.user.entries} name={this.state.user.name}/>
 
                         <ImageLinkForm onInputChange = {this.onInputChange}
                                        onButtonSubmit = {this.onButtonSubmit}/>
@@ -93,8 +112,8 @@ class App extends Component {
                     </div>
 
                     : (this.state.route === 'signin'
-                        ? <Signin onRouteChange={this.onRouteChange}/>
-                        : <Register onRouteChange={this.onRouteChange}/>)
+                        ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                        : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>)
                 }
 
             </div>
@@ -102,13 +121,9 @@ class App extends Component {
     }
 }
 
-const particlesInit = (main) => {
-    console.log(main);
-};
+const particlesInit = (main) => {};
 
-const particlesLoaded = (container) => {
-    console.log(container);
-};
+const particlesLoaded = (container) => {};
 
 const particleOptions = {
     background: {

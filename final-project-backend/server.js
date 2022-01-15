@@ -1,7 +1,10 @@
 const express = require('express')
+const bcrypt = require('bcrypt-nodejs')
+const cors = require('cors')
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 const database = {
     users: [
@@ -46,7 +49,7 @@ app.post('/signin', (req, res) => {
     database.users.forEach(user => {
         if (email === user.email &&
             password === user.password){
-            return res.json(user)
+            return res.json(database.users[0]);
         }
 
     })
@@ -57,6 +60,10 @@ app.post('/signin', (req, res) => {
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body
 
+    bcrypt.hash(password, null, null, function(err, hash) {
+        return hash
+    });
+
     database.users.push({
         id: '3',
         name: name,
@@ -66,7 +73,7 @@ app.post('/register', (req, res) => {
         joined: new Date()
     })
 
-    res.json(database.users[2])
+    res.json(database.users[database.users.length - 1])
 })
 
 app.post('/image', (req, res) => {
@@ -84,6 +91,6 @@ app.post('/image', (req, res) => {
 
 })
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('app is running on port 3000')
 })
