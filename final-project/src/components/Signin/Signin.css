@@ -1,3 +1,13 @@
+@font-face {
+    font-family: "RealityCheck";
+    src: url("../ImageLinkForm/reality_check_demo-webfont.woff")
+
+}
+
+.font{
+    font-family: "RealityCheck", serif;
+}
+
 .ba {
     border-style: solid;
     border-width: 1px;
