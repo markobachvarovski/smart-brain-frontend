@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "RealityCheck";
+    src: url("../ImageLinkForm/reality_check_demo-webfont.woff")
+
+}
+
 .rank{
-    font-family: "Courier New", courier, monospace;
+    font-family: "RealityCheck", serif;
 }
