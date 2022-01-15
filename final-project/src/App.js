@@ -138,9 +138,10 @@ class App extends Component {
     }
 }
 
-const particlesInit = (main) => {};
 
-const particlesLoaded = (container) => {};
+const particlesInit = () => {};
+
+const particlesLoaded = () => {};
 
 const particleOptions = {
     background: {
