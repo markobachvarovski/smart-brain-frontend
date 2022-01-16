@@ -9,7 +9,7 @@ const db = knex({
         host : '127.0.0.1',
         port : 5432,
         user : 'postgres',
-        password : 'INSERT-PASSWORD-HERE',
+        password : '',
         database : 'final-project'
     }
 });
@@ -55,7 +55,7 @@ app.post('/signin', (req, res) => {
                         res.json(user[0])
                     })
                     .catch(err => res.status(400).json('Unable to get user'))
-            }else{
+            } else {
                 res.status(400).json('Invalid credentials')
             }
 

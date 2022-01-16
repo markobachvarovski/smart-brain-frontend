@@ -13,26 +13,28 @@ import Clarifai from 'clarifai';
 
 
 const app = new Clarifai.App({
-    apiKey: 'YOUR-API-KEY'
+    apiKey: ''
 });
+
+const initialState = {
+    input: '',
+    imgUrl: '',
+    box: {},
+    route: 'signin',
+    user: {
+        id: '',
+        name: '',
+        email: '',
+        password: '',
+        entries: 0,
+        joined: ''
+    }
+};
 
 class App extends Component {
     constructor() {
         super();
-        this.state = {
-            input: '',
-            imgUrl: '',
-            box: {},
-            route: 'signin',
-            user: {
-                id: '',
-                name: '',
-                email: '',
-                password: '',
-                entries: 0,
-                joined: ''
-            }
-        }
+        this.state = initialState;
     }
 
     loadUser = (user) => {
@@ -47,6 +49,11 @@ class App extends Component {
     }
 
     calculateFaceLocation = (data) => {
+
+        if (Object.keys(data.outputs[0].data).length === 0){
+            return({})
+        }
+
         const face = data.outputs[0].data.regions[0].region_info.bounding_box
 
         const image = document.getElementById('inputimage')
@@ -60,10 +67,15 @@ class App extends Component {
             rightCol: (1 - face.right_col) * width,
             bottomRow: (1 - face.bottom_row) * height
         })
+
     }
 
     displayFaceBox = (box) => {
-        this.setState({box: box});
+        this.setState({box: box})
+
+        if(box.length === 0){
+            this.setState({box: {}})
+        }
     }
 
     onInputChange = (event) => {
@@ -82,20 +94,28 @@ class App extends Component {
                             id: this.state.user.id
                         })
                     })
-                    .then(response => response.json())
-                    .then(count => {
-                        this.setState(Object.assign(this.state.user, {entries: count}))
-                    })
+                        .then(response => response.json())
+                        .then(count => {
+                            this.setState(Object.assign(this.state.user, {entries: count}))
+                        })
                 }
                 this.displayFaceBox(this.calculateFaceLocation(response))
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log('Image is too blurry for the API to recognize. Please try a different one')
+                this.displayFaceBox({})
+            });
 
         document.getElementById('imageInput').value = ''
     }
 
     onRouteChange = (route) => {
+        if(route === 'signin'){
+            this.setState(initialState)
+        }
+
         this.setState({route: route});
+
     }
 
     render() {
