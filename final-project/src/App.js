@@ -13,7 +13,7 @@ import Clarifai from 'clarifai';
 
 
 const app = new Clarifai.App({
-    apiKey: ''
+    apiKey: 'd4859bbc19794718a2c877aa76ed917e'
 });
 
 const initialState = {
@@ -49,7 +49,6 @@ class App extends Component {
     }
 
     calculateFaceLocation = (data) => {
-
         if (Object.keys(data.outputs[0].data).length === 0){
             return({})
         }
