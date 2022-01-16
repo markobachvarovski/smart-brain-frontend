@@ -9,7 +9,7 @@ const db = knex({
         host : '127.0.0.1',
         port : 5432,
         user : 'postgres',
-        password : 'markoproject',
+        password : 'INSERT-PASSWORD-HERE',
         database : 'final-project'
     }
 });
